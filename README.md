@@ -38,13 +38,9 @@ Antes de comenzar, asegúrate de tener instalado:
 | Paquete | Versión | Descripción |
 |---------|---------|-------------|
 | **fakerphp/faker** | ^1.23 | Generador de datos falsos para testing |
-| **laravel/pail** | ^1.2.2 | Monitor de logs de Laravel |
 | **laravel/pint** | ^1.24 | Code style checker para PHP |
 | **laravel/sail** | ^1.41 | Docker environment para Laravel |
-| **mockery/mockery** | ^1.6 | Librería para mocking en tests |
-| **nunomaduro/collision** | ^8.6 | Mejor presentación de errores |
 | **pestphp/pest** | ^3.8 | Framework de testing moderno |
-| **pestphp/pest-plugin-laravel** | ^3.2 | Plugin de Pest para Laravel |
 
 ### Versión de Laravel
 
@@ -86,7 +82,11 @@ APP_DEBUG=true
 APP_URL=http://localhost:8000
 
 DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
 DB_DATABASE=gestor
+DB_USERNAME=postgres
+DB_PASSWORD=1234
 ```
 
 #### 4. Generar la clave de la aplicación
@@ -138,21 +138,6 @@ php artisan serve
 
 Luego accede a: **http://localhost:8000**
 
-### Opción 2: Usar XAMPP (Apache)
-
-1. Coloca el proyecto en `C:\xampp\htdocs\laravel\gestor`
-2. Inicia Apache desde el panel de XAMPP
-3. Accede a: **http://localhost/laravel/gestor/public**
-
-### Opción 3: Desarrollo con Hot Reload
-
-Para compilación automática de assets mientras desarrollas:
-```bash
-npm run dev
-```
-
----
-
 ## 📊 Estructura de la Base de Datos
 
 ### Tabla: `contactos`
@@ -174,72 +159,19 @@ CREATE TABLE contactos (
 
 ## 💾 Cómo Exportar la Base de Datos
 
-### Opción 1: Exportar usando Comandos de Laravel
+### Exportar usando Comandos de Laravel
 
 #### Exportar a archivo SQL
 ```bash
 php artisan db:export database/backups/contactos_backup.sql
 ```
 
-#### 1. Usando sqlite3 (para SQLite)
-```bash
-sqlite3 database/database.sqlite ".dump" > database/backup.sql
-```
-
-### Opción 2: Copiar el archivo de SQLite directamente
-
-Si usas SQLite, simplemente copia el archivo:
-```bash
-copy database/database.sqlite database/database.sqlite.backup
-```
-
-### Opción 3: Exportar usando phpMyAdmin o DB Manager
-
-1. Abre phpMyAdmin en http://localhost/phpmyadmin
-2. Selecciona la base de datos
-3. Haz clic en la pestaña "Exportar"
-4. Elige el formato SQL
-5. Haz clic en "Descargar"
-
-### Opción 4: Crear un Backup con Artisan
+### Tambien puede crear un Backup con Artisan
 
 Crea un backup automático:
 ```bash
 php artisan backup:run
 ```
-
----
-
-## 🔧 Comandos Útiles de Laravel
-
-```bash
-# Ver la versión de Laravel
-php artisan --version
-
-# Crear una migración nueva
-php artisan make:migration nombre_migracion
-
-# Crear un modelo nuevo
-php artisan make:model NombreModelo
-
-# Crear un controlador
-php artisan make:controller NombreControlador
-
-# Ver todas las rutas
-php artisan route:list
-
-# Limpiar caché
-php artisan cache:clear
-php artisan config:clear
-php artisan view:clear
-
-# Ejecutar tests
-php artisan test
-
-# Ver la base de datos en la consola
-php artisan tinker
-```
-
 ---
 
 ## 📝 Migraciones Disponibles
@@ -293,57 +225,8 @@ PATCH  /contacto/{id}       - Actualizar contacto
 DELETE /contacto/{id}       - Eliminar contacto
 ```
 
----
-
-## 📄 Estructura del Proyecto
-
-```
-gestor/
-├── app/
-│   ├── Http/
-│   │   └── Controllers/
-│   │       └── ContactoController.php
-│   └── Models/
-│       ├── Contacto.php
-│       └── User.php
-├── database/
-│   ├── migrations/
-│   └── database.sqlite
-├── resources/
-│   ├── css/
-│   │   └── app.css
-│   ├── js/
-│   └── views/
-│       ├── welcome.blade.php
-│       └── contacto/
-│           ├── index.blade.php
-│           ├── create.blade.php
-│           ├── edit.blade.php
-│           └── form.blade.php
-├── routes/
-│   └── web.php
-├── public/
-│   └── index.php
-├── .env
-├── composer.json
-├── package.json
-└── README.md
-```
-
----
-
-## 📧 Contacto y Soporte
-
-Para reportar bugs o sugerencias, contacta al desarrollador.
-
----
-
-## 📜 Licencia
-
-Este proyecto está bajo la licencia MIT. Ver archivo LICENSE para más detalles.
 
 ---
 
 **Última actualización**: 13 de febrero de 2026  
 **Versión**: 1.0.0  
-**Estado**: En desarrollo ✅
